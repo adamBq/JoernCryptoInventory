@@ -2,10 +2,10 @@
 {
   "bomFormat":"CycloneDX",
   "specVersion":"1.6",
-  "serialNumber":"urn:uuid:d765f3b4-2dc1-4642-9914-526164b36e30",
+  "serialNumber":"urn:uuid:7bca69eb-20fa-4473-af1c-744f13f8ca5e",
   "version":1,
   "metadata":{
-    "timestamp":"2025-11-16T19:07:52.160037858+11:00[Australia/Sydney]",
+    "timestamp":"2025-11-30T15:06:15.271599548+11:00[Australia/Sydney]",
     "tools":[{"vendor":"Joern","name":"Joern-CBOM-OpenSSL+Libsodium","version":"df-v2.4.1"}]
   },
   "components":[
@@ -25,7 +25,7 @@
       "type":"file",
       "bom-ref":"file:libsodium/aead_xchacha.c",
       "name":"libsodium/aead_xchacha.c",
-      "hashes":[{"alg":"SHA-256","content":"3aa9871651b6593d334823384fe0346e2b368885ad4f7b0609e2c3bbcbac97f1"}],
+      "hashes":[{"alg":"SHA-256","content":"72623698ff6ebed6fc07e85a70312b63cdeeb709291a69e30aec0baf3206bce6"}],
       "properties":[
         {"name":"impact.outbound.count","value":"0"},
         {"name":"impact.outbound.edges","value":"[]"}
@@ -438,10 +438,10 @@
     ,
     {
       "type":"data",
-      "bom-ref":"crypto:99e44183fa67bb184710d2fc98c7aed655df598e",
+      "bom-ref":"crypto:c52c52f33a86171470f67016898aa00dd61b7b68",
       "name":"CHACHA20-POLY1305-AEAD",
       "properties":[ {"name":"provider","value":"Libsodium"},{"name":"pqm.vulnerability","value":"symmetric-safe"},{"name":"aead.ivLen","value":"24"},{"name":"ivSource","value":"24"},{"name":"operation","value":"decrypt"},{"name":"primitive","value":"aead"},{"name":"weaknesses","value":""},{"name":"aead.aad","value":"present"},{"name":"pqm.category","value":"symmetric"} ],
-      "evidence": { "occurrences": [{"file":"libsodium/aead_xchacha.c","function":"main<duplicate>0","line":21,"snippet":"crypto_aead_xchacha20poly1305_ietf_decrypt(dec, &mlen, NULL, c, clen, ad, sizeof ad, nonce, key)"}] }
+      "evidence": { "occurrences": [{"file":"libsodium/aead_xchacha.c","function":"main<duplicate>0","line":22,"snippet":"crypto_aead_xchacha20poly1305_ietf_decrypt(\n            dec, &mlen, NULL, c, clen, ad, sizeof ad, nonce, key)"}] }
     }
     ,
     {
@@ -502,10 +502,10 @@
     ,
     {
       "type":"data",
-      "bom-ref":"crypto:be7c68b655871941b6980d63f97fa5bde33fb8db",
+      "bom-ref":"crypto:f69b49adab50d88db32c31e05942d3d4c6b8136d",
       "name":"CHACHA20-POLY1305-AEAD",
       "properties":[ {"name":"provider","value":"Libsodium"},{"name":"pqm.vulnerability","value":"symmetric-safe"},{"name":"aead.ivLen","value":"24"},{"name":"ivSource","value":"24"},{"name":"operation","value":"encrypt"},{"name":"primitive","value":"aead"},{"name":"weaknesses","value":""},{"name":"aead.aad","value":"present"},{"name":"pqm.category","value":"symmetric"} ],
-      "evidence": { "occurrences": [{"file":"libsodium/aead_xchacha.c","function":"main<duplicate>0","line":19,"snippet":"crypto_aead_xchacha20poly1305_ietf_encrypt(c, &clen, m, sizeof m, ad, sizeof ad, NULL, nonce, key)"}] }
+      "evidence": { "occurrences": [{"file":"libsodium/aead_xchacha.c","function":"main<duplicate>0","line":20,"snippet":"crypto_aead_xchacha20poly1305_ietf_encrypt(\n        c, &clen, m, sizeof m, ad, sizeof ad, NULL, nonce, key)"}] }
     }
     ,
     {
@@ -518,10 +518,10 @@
     ,
     {
       "type":"data",
-      "bom-ref":"crypto:e8d144149ab72fec3e5b5ba524f32b5eaa35ee7f",
+      "bom-ref":"crypto:b0a0580835bb55df9c297e73a37bfd29644641fe",
       "name":"RNG",
       "properties":[ {"name":"provider","value":"Libsodium"},{"name":"pqm.vulnerability","value":"unknown"},{"name":"ivSource","value":""},{"name":"operation","value":"derive"},{"name":"primitive","value":"rng"},{"name":"weaknesses","value":""},{"name":"pqm.category","value":"unknown"} ],
-      "evidence": { "occurrences": [{"file":"libsodium/aead_xchacha.c","function":"main<duplicate>0","line":16,"snippet":"randombytes_buf(key, sizeof key)"},{"file":"libsodium/aead_xchacha.c","function":"main<duplicate>0","line":17,"snippet":"randombytes_buf(nonce, sizeof nonce)"}] }
+      "evidence": { "occurrences": [{"file":"libsodium/aead_xchacha.c","function":"main<duplicate>0","line":17,"snippet":"randombytes_buf(key, sizeof key)"},{"file":"libsodium/aead_xchacha.c","function":"main<duplicate>0","line":18,"snippet":"randombytes_buf(nonce, sizeof nonce)"}] }
     }
     ,
     {
@@ -529,7 +529,7 @@
       "bom-ref":"crypto:9ccb2eda6b7f5e9ed7a33a0086041a6ba91cfc9a",
       "name":"ARGON2ID-KDF",
       "properties":[ {"name":"provider","value":"Libsodium"},{"name":"pqm.vulnerability","value":"unknown"},{"name":"ivSource","value":""},{"name":"operation","value":"derive"},{"name":"primitive","value":"kdf"},{"name":"weaknesses","value":""},{"name":"pqm.category","value":"unknown"} ],
-      "evidence": { "occurrences": [{"file":"libsodium/kdf_and_pwhash.c","function":"main<duplicate>5","line":17,"snippet":"crypto_pwhash(out, sizeof out, password, strlen(password), salt,crypto_pwhash_OPSLIMIT_INTERACTIVE,crypto_pwhash_MEMLIMIT_INTERACTIVE,crypto_pwhash_ALG_DEFAULT)"}] }
+      "evidence": { "occurrences": [{"file":"libsodium/kdf_and_pwhash.c","function":"main<duplicate>5","line":17,"snippet":"crypto_pwhash(out, sizeof out, password, strlen(password), salt,\n                      crypto_pwhash_OPSLIMIT_INTERACTIVE,\n                      crypto_pwhash_MEMLIMIT_INTERACTIVE,\n                      crypto_pwhash_ALG_DEFAULT)"}] }
     }
     ,
     {
@@ -577,7 +577,7 @@
       "bom-ref":"crypto:08b9fbd8ea1f956ffed96c6c573dfaf976b1b031",
       "name":"CHACHA20-POLY1305-AEAD",
       "properties":[ {"name":"provider","value":"Libsodium"},{"name":"pqm.vulnerability","value":"symmetric-safe"},{"name":"aead.ivLen","value":"12"},{"name":"ivSource","value":"12"},{"name":"operation","value":"decrypt"},{"name":"primitive","value":"aead"},{"name":"weaknesses","value":""},{"name":"aead.aad","value":"present"},{"name":"pqm.category","value":"symmetric"} ],
-      "evidence": { "occurrences": [{"file":"libsodium/aead_chacha_ietf.c","function":"main","line":24,"snippet":"crypto_aead_chacha20poly1305_ietf_decrypt(dec, &mlen, NULL, c, clen, ad, sizeof ad, nonce, key)"}] }
+      "evidence": { "occurrences": [{"file":"libsodium/aead_chacha_ietf.c","function":"main","line":24,"snippet":"crypto_aead_chacha20poly1305_ietf_decrypt(\n            dec, &mlen, NULL, c, clen, ad, sizeof ad, nonce, key)"}] }
     }
     ,
     {
@@ -641,7 +641,7 @@
       "bom-ref":"crypto:c6798c27e132173f9992580d5ba9ba5ce9aba005",
       "name":"CHACHA20-POLY1305-AEAD",
       "properties":[ {"name":"provider","value":"Libsodium"},{"name":"pqm.vulnerability","value":"symmetric-safe"},{"name":"aead.ivLen","value":"12"},{"name":"ivSource","value":"12"},{"name":"operation","value":"encrypt"},{"name":"primitive","value":"aead"},{"name":"weaknesses","value":""},{"name":"aead.aad","value":"present"},{"name":"pqm.category","value":"symmetric"} ],
-      "evidence": { "occurrences": [{"file":"libsodium/aead_chacha_ietf.c","function":"main","line":18,"snippet":"crypto_aead_chacha20poly1305_ietf_encrypt(c, &clen, msg, sizeof msg, ad, sizeof ad,NULL, nonce, key)"}] }
+      "evidence": { "occurrences": [{"file":"libsodium/aead_chacha_ietf.c","function":"main","line":18,"snippet":"crypto_aead_chacha20poly1305_ietf_encrypt(\n        c, &clen, msg, sizeof msg, ad, sizeof ad,\n        NULL, nonce, key)"}] }
     }
     ,
     {
@@ -654,6 +654,6 @@
     
   ],
   "dependencies":[
-    {"ref":"file:openssl/v2/aead_aes_ccm_ctrl.c","dependsOn":[ "crypto:1b0fc420a490e2bf3d6cb1596243a45f55e4b6a3" ]},{"ref":"file:libsodium/sign_demo.c","dependsOn":[ "crypto:8f2923fb278e0bec5dbc73aed3acd3da1b8884db","crypto:c736025cffb9c686ff36b085a3a5c860d7f40b58" ]},{"ref":"file:openssl/sha_selector.c","dependsOn":[ "crypto:1492187fe5f90ef106e342d50d255ac5e69ad78f" ]},{"ref":"file:openssl/v2/cbc_zero_iv_local.c","dependsOn":[ "crypto:6b682ed5f87c9217357bc1abd1025054e8d35179" ]},{"ref":"file:libsodium/secretstream_demo.c","dependsOn":[ "crypto:ac44924e058f26f93fca89c5f0ccab86135c3fc5","crypto:4e6e50b50d18938bf49b79c837505f24643fbb1c","crypto:c948c2b083f5f5ec539e5af4ab3a35501b4bc980" ]},{"ref":"file:libsodium/rng_demo.c","dependsOn":[ "crypto:274373633c0d3c9be49ee52bd8b02784aa7f829f" ]},{"ref":"file:libsodium/aes256gcm_demo.c","dependsOn":[ "crypto:e2d359c062471d6f5d0f7dc7d612dd9b497ba72c","crypto:989fd1f0a6b7f58d49745ace75687abc77ae7705" ]},{"ref":"file:libsodium/hash_and_mac.c","dependsOn":[ "crypto:b31a5b8cf5cf1098f2107c300fede8e6b7c20a45","crypto:b5579a46a30bf730d38637c02c39556177118128","crypto:c2efbcf18823c6161fdf4b41319016496ada1cc0","crypto:586bdf90308fe465fb9a1f317b343278904cd9f8","crypto:8ddbba450c830e1cea806d93c13377988badc880" ]},{"ref":"file:openssl/openssl_aes_cbc.c","dependsOn":[ "crypto:8def7d5a0ef3cbd5af3f50e6d3740d13b80adcd4" ]},{"ref":"file:openssl/v2/aead_chacha20_poly1305.c","dependsOn":[ "crypto:99c444ea763981e0a71efed1e1db77e1a00dbe6f" ]},{"ref":"file:openssl/v2/cbc_rand_iv_local.c","dependsOn":[ "crypto:5d8e26a663744b5aead51ead0cbb32641283d1c6","crypto:a35fffbcfc5a74b7f4f2b7dc060157996350dade" ]},{"ref":"file:openssl/v2/tls_config.c","dependsOn":[ "crypto:3ac87995d45a275ca416d531749cf003bfd139b4","crypto:5a231142a71a7218a6fa7315e53f7f3c9abf0c8e" ]},{"ref":"file:libsodium/kx_demo.c","dependsOn":[ "crypto:8f276af4f020034091de61ffc683d5d08f774d81" ]},{"ref":"file:openssl/openssl_rsa_sha1.c","dependsOn":[ "crypto:7ee6a280686141747fd7bc8999d62959c13c3e5d" ]},{"ref":"file:libsodium/aead_chacha_ietf.c","dependsOn":[ "crypto:9562405bcf7e5cc411a12f30f5617bfe02e28288","crypto:08b9fbd8ea1f956ffed96c6c573dfaf976b1b031","crypto:c6798c27e132173f9992580d5ba9ba5ce9aba005" ]},{"ref":"file:openssl/v2/rng_pbkdf2_kdf.c","dependsOn":[ "crypto:e9b268e50fc2fe613d98c53470f6c4a537dcf640" ]},{"ref":"file:openssl/use_wrapper.c","dependsOn":[ "crypto:bdeb9e32e1a1149f0060feb97161df4d2c843ec8" ]},{"ref":"file:libsodium/box_demo.c","dependsOn":[ "crypto:036a5935ba809c50a91a8c6187f38fac7a736ca8","crypto:55ad54dcb49c85b363dd10d90f134edc49201470" ]},{"ref":"file:libsodium/kdf_and_pwhash.c","dependsOn":[ "crypto:9ccb2eda6b7f5e9ed7a33a0086041a6ba91cfc9a","crypto:c1c3ef88b5944cede59e7f913d155f05035842eb","crypto:04bad17fef86d9a2ab12d12d8dd8636bd30acb55" ]},{"ref":"file:libsodium/secretbox_demo.c","dependsOn":[ "crypto:16d64000f7d23b28e1900b697bbc70fc0330b9db","crypto:7fc066cd2a71e5819d3c78a68400c67bdf0170fc" ]},{"ref":"file:libsodium/aead_xchacha.c","dependsOn":[ "crypto:99e44183fa67bb184710d2fc98c7aed655df598e","crypto:be7c68b655871941b6980d63f97fa5bde33fb8db","crypto:e8d144149ab72fec3e5b5ba524f32b5eaa35ee7f" ]},{"ref":"file:openssl/driver.c","dependsOn":[ "file:openssl/openssl_aes_cbc.c" ]},{"ref":"file:openssl/use_wrapper.c","dependsOn":[ "file:openssl/wrapped_util.c" ]}
+    {"ref":"file:openssl/v2/aead_aes_ccm_ctrl.c","dependsOn":[ "crypto:1b0fc420a490e2bf3d6cb1596243a45f55e4b6a3" ]},{"ref":"file:libsodium/sign_demo.c","dependsOn":[ "crypto:8f2923fb278e0bec5dbc73aed3acd3da1b8884db","crypto:c736025cffb9c686ff36b085a3a5c860d7f40b58" ]},{"ref":"file:openssl/sha_selector.c","dependsOn":[ "crypto:1492187fe5f90ef106e342d50d255ac5e69ad78f" ]},{"ref":"file:openssl/v2/cbc_zero_iv_local.c","dependsOn":[ "crypto:6b682ed5f87c9217357bc1abd1025054e8d35179" ]},{"ref":"file:libsodium/secretstream_demo.c","dependsOn":[ "crypto:ac44924e058f26f93fca89c5f0ccab86135c3fc5","crypto:4e6e50b50d18938bf49b79c837505f24643fbb1c","crypto:c948c2b083f5f5ec539e5af4ab3a35501b4bc980" ]},{"ref":"file:libsodium/rng_demo.c","dependsOn":[ "crypto:274373633c0d3c9be49ee52bd8b02784aa7f829f" ]},{"ref":"file:libsodium/aes256gcm_demo.c","dependsOn":[ "crypto:e2d359c062471d6f5d0f7dc7d612dd9b497ba72c","crypto:989fd1f0a6b7f58d49745ace75687abc77ae7705" ]},{"ref":"file:libsodium/hash_and_mac.c","dependsOn":[ "crypto:b31a5b8cf5cf1098f2107c300fede8e6b7c20a45","crypto:b5579a46a30bf730d38637c02c39556177118128","crypto:c2efbcf18823c6161fdf4b41319016496ada1cc0","crypto:586bdf90308fe465fb9a1f317b343278904cd9f8","crypto:8ddbba450c830e1cea806d93c13377988badc880" ]},{"ref":"file:openssl/openssl_aes_cbc.c","dependsOn":[ "crypto:8def7d5a0ef3cbd5af3f50e6d3740d13b80adcd4" ]},{"ref":"file:openssl/v2/aead_chacha20_poly1305.c","dependsOn":[ "crypto:99c444ea763981e0a71efed1e1db77e1a00dbe6f" ]},{"ref":"file:openssl/v2/cbc_rand_iv_local.c","dependsOn":[ "crypto:5d8e26a663744b5aead51ead0cbb32641283d1c6","crypto:a35fffbcfc5a74b7f4f2b7dc060157996350dade" ]},{"ref":"file:openssl/v2/tls_config.c","dependsOn":[ "crypto:3ac87995d45a275ca416d531749cf003bfd139b4","crypto:5a231142a71a7218a6fa7315e53f7f3c9abf0c8e" ]},{"ref":"file:libsodium/kx_demo.c","dependsOn":[ "crypto:8f276af4f020034091de61ffc683d5d08f774d81" ]},{"ref":"file:openssl/openssl_rsa_sha1.c","dependsOn":[ "crypto:7ee6a280686141747fd7bc8999d62959c13c3e5d" ]},{"ref":"file:libsodium/aead_chacha_ietf.c","dependsOn":[ "crypto:9562405bcf7e5cc411a12f30f5617bfe02e28288","crypto:08b9fbd8ea1f956ffed96c6c573dfaf976b1b031","crypto:c6798c27e132173f9992580d5ba9ba5ce9aba005" ]},{"ref":"file:openssl/v2/rng_pbkdf2_kdf.c","dependsOn":[ "crypto:e9b268e50fc2fe613d98c53470f6c4a537dcf640" ]},{"ref":"file:openssl/use_wrapper.c","dependsOn":[ "crypto:bdeb9e32e1a1149f0060feb97161df4d2c843ec8" ]},{"ref":"file:libsodium/box_demo.c","dependsOn":[ "crypto:036a5935ba809c50a91a8c6187f38fac7a736ca8","crypto:55ad54dcb49c85b363dd10d90f134edc49201470" ]},{"ref":"file:libsodium/kdf_and_pwhash.c","dependsOn":[ "crypto:9ccb2eda6b7f5e9ed7a33a0086041a6ba91cfc9a","crypto:c1c3ef88b5944cede59e7f913d155f05035842eb","crypto:04bad17fef86d9a2ab12d12d8dd8636bd30acb55" ]},{"ref":"file:libsodium/secretbox_demo.c","dependsOn":[ "crypto:16d64000f7d23b28e1900b697bbc70fc0330b9db","crypto:7fc066cd2a71e5819d3c78a68400c67bdf0170fc" ]},{"ref":"file:libsodium/aead_xchacha.c","dependsOn":[ "crypto:c52c52f33a86171470f67016898aa00dd61b7b68","crypto:f69b49adab50d88db32c31e05942d3d4c6b8136d","crypto:b0a0580835bb55df9c297e73a37bfd29644641fe" ]},{"ref":"file:openssl/driver.c","dependsOn":[ "file:openssl/openssl_aes_cbc.c" ]},{"ref":"file:openssl/use_wrapper.c","dependsOn":[ "file:openssl/wrapped_util.c" ]}
   ]
 }

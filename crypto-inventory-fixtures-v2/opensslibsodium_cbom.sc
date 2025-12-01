@@ -7,10 +7,10 @@
 // KDF/PWHASH (Argon2id), RNG (randombytes_*), Secretstream (XChaCha20-Poly1305). Robust to call.name/code mismatch.
 
 // USAGE
-// :load /abs/path/run_openssl_cbom_df_v2_4_1.sc
-// workspace reset
+// :load /abs/path/opensslibsodium_cbom.sc.sc
+// workspace.reset
 // importCode("/abs/path/<repo>")
-// openSslCbomDF("/abs/path/<repo>", "/abs/path/cbom.cdx.json", ".*")
+// cryptoScan("/abs/path/<repo>", "/abs/path/cbom.cdx.json", ".*")
 
 import io.shiftleft.semanticcpg.language._
 import io.shiftleft.codepropertygraph.generated.nodes
@@ -18,15 +18,9 @@ import java.nio.file.{Files, Paths}
 import java.security.MessageDigest
 import java.util.UUID
 
-// -------- Config --------
-case class ScanConfig(
-  scopeRegex: String = ".*",
-  enableCreationPass: Boolean = true // RNG/KDF/keygen sweep (optional, conservative)
-)
 
 var REPO    = ""
 var OUTFILE = "cbom.cdx.json"
-var CFG     = ScanConfig()
 
 // -------- OpenSSL Regexes --------
 // EVP creators
@@ -112,7 +106,13 @@ case class Asset(
 case class ImpactEdge(srcFile: String, dstFile: String, caller: String, callee: String, line: Int)
 
 // -------- Utils --------
-def q(s: String) = Option(s).getOrElse("").replace("\\", "\\\\").replace("\"", "\\\"")
+def q(s: String) =
+  Option(s).getOrElse("")
+    .replace("\\", "\\\\")
+    .replace("\"", "\\\"")
+    .replace("\n", "\\n")
+    .replace("\r", "\\r")
+    .replace("\t", "\\t")
 def prop(name: String, value: String) = s"""{"name":"${q(name)}","value":"${q(value)}"}"""
 def sha256Hex(bytes: Array[Byte]): String = {
   val md = MessageDigest.getInstance("SHA-256"); md.digest(bytes).map("%02x".format(_)).mkString
@@ -686,7 +686,7 @@ def scanSodiumAssets(scopeRegex: String): List[Asset] = {
     }
   }
 
-  // Merge identical AssetKeys (like we did for OpenSSL) and unify properties/evidence
+  // Merge identical AssetKeys and unify properties/evidence
   assets.groupBy(_.key).map { case (k, xs) =>
     val one = xs.head
     val props = xs.map(_.properties).foldLeft(Map.empty[String,String])(_ ++ _)
@@ -756,7 +756,7 @@ def writeCbom(assets: List[Asset], edges: List[ImpactEdge], scopeRegex: String, 
   val repoRoot = Paths.get(REPO)
   val files = cpg.file.name(scopeRegex).name.l.distinct.filterNot(_.startsWith("<"))
 
-  val outbound = edges.groupBy(_.srcFile).mapValues(_.toList)
+  val outbound = edges.groupBy(_.srcFile)
 
   val fileComps = files.map { path =>
     val rel = Paths.get(path)
@@ -795,7 +795,7 @@ def writeCbom(assets: List[Asset], edges: List[ImpactEdge], scopeRegex: String, 
       s"""{"file":"${q(e.file)}","function":"${q(e.function)}","line":${e.line},"snippet":"${q(e.snippet)}"}"""
     }.mkString("[",",","]")
     val propsKVs =
-      a.properties + (
+      a.properties ++ Map(
         "provider" -> a.provider,
         "operation" -> a.key.operation,
         "primitive" -> a.primitive,
@@ -834,7 +834,7 @@ def writeCbom(assets: List[Asset], edges: List[ImpactEdge], scopeRegex: String, 
   val dependenciesJson = (depsFileCrypto ++ depsFileFile).mkString(",")
 
   val json =
-s"""
+  s"""
 {
   "bomFormat":"CycloneDX",
   "specVersion":"1.6",
@@ -859,17 +859,16 @@ s"""
 }
 
 // -------- Entrypoint --------
-def openSslCbomDF(repo: String, out: String = "cbom.cdx.json", scopeRegex: String = ".*", cfg: ScanConfig = ScanConfig()): Unit = {
-  REPO = repo; OUTFILE = out; CFG = cfg.copy(scopeRegex = scopeRegex)
+def cryptoScan(repo: String, out: String = "cbom.cdx.json", scopeRegex: String = ".*"): Unit = {
+  REPO = repo; OUTFILE = out;
   if (cpg.metaData.l.isEmpty) importCode(repo)
 
   println(s"[info] Dataflow available: ${dfAvailable()}")
   println(s"[info] Scope regex: ${scopeRegex}")
-  println(s"[info] Creation pass: ${CFG.enableCreationPass}")
 
   val evpAssets     = scanEVPAssets(scopeRegex)
   val tlsAssets     = scanTlsAssets(scopeRegex)
-  val createAssets  = if (CFG.enableCreationPass) scanCreationAssets(scopeRegex) else Nil
+  val createAssets  = scanCreationAssets(scopeRegex) 
   val sodiumAssets  = scanSodiumAssets(scopeRegex)
 
   val assets = (evpAssets ++ tlsAssets ++ createAssets ++ sodiumAssets)
@@ -884,10 +883,10 @@ def openSslCbomDF(repo: String, out: String = "cbom.cdx.json", scopeRegex: Strin
 }
 
 println(
-  """Loaded run_openssl_cbom_df_v2_4_1.sc (OpenSSL + Libsodium).
+  """Loaded opensslibsodium_cbom.sc.sc (OpenSSL + Libsodium).
 Usage:
-  :load /abs/path/run_openssl_cbom_df_v2_4_1.sc
-  workspace reset
+  :load /abs/path/opensslibsodium_cbom.sc.sc
+  workspace.reset
   importCode("/abs/path/<repo>")
-  openSslCbomDF("/abs/path/<repo>", "/abs/path/cbom.cdx.json", ".*")
+  cryptoScan("/abs/path/<repo>", "/abs/path/cbom.cdx.json", ".*")
 """)
